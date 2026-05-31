@@ -1,0 +1,63 @@
+# -- Theme Options --
+# Documentazione: https://jpanther.github.io/congo/docs/configuration/
+
+colorScheme = "congo"            # schema attuale. Alternative: slate (grigio), ocean / sapphire (blu), avocado (verde), fire (arancio), cherry (rosso)
+defaultAppearance = "dark"       # light o dark
+autoSwitchAppearance = true      # segue le preferenze del sistema dell'utente
+
+enableSearch = true
+enableCodeCopy = true
+enableImageLazyLoading = true
+enableImageWebp = true
+enableQuicklink = true
+
+fingerprintAlgorithm = "sha256"
+
+[header]
+  layout = "basic"               # basic, hamburger, hybrid, custom
+  showTitle = true
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "page"                # valid options: page, profile
+  showRecent = true              # mostra la lista degli articoli recenti in home
+  recentLimit = 6                # quanti articoli mostrare
+
+[article]
+  showDate = true
+  showDateUpdated = false
+  showAuthor = true
+  showBreadcrumbs = true
+  showDraftLabel = true
+  showEdit = false
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showWordCount = false
+  showComments = false
+
+[list]
+  showBreadcrumbs = true
+  showSummary = true
+  showTableOfContents = false
+  showTaxonomies = false
+  groupByYear = false
+  paginationWidth = 1
+
+[sitemap]
+  excludedKinds = ["taxonomy", "term"]
+
+[taxonomy]
+  showTermCount = true
+
+[verification]
+  # google = ""
+  # bing = ""

@@ -1,0 +1,23 @@
+locale = "en"
+languageName = "English"
+weight = 1
+
+title = "k0x1c"
+copyright = "&copy; 2026 k0x1c"
+
+[params]
+  dateFormat = "2 January 2006"
+  mainSections = ["posts"]
+  description = "k0x1c"
+
+[params.author]
+  name = "k0x1c"
+  # image = "img/author.jpg"     # opzionale: metti un'immagine in assets/img/
+  headline = ""
+  bio = ""
+  # I link social compaiono come icone nel footer. Modifica gli URL con i tuoi profili.
+  links = [
+    { bluesky = "https://bsky.app/profile/your-handle.bsky.social" },
+    { mastodon = "https://infosec.exchange/@your-handle" },
+    { github = "https://github.com/your-username" },
+  ]

@@ -1,0 +1,107 @@
+# ===========================================================================
+# cti.al — Hugo + PaperMod
+# Served at https://cti.al/ (GitHub Pages, repo k0x1c/cti-site, CNAME -> cti.al)
+# ===========================================================================
+baseURL = "https://cti.al/"
+languageCode = "en-us"
+title = "cti.al"
+theme = "PaperMod"
+
+enableInlineShortcodes = true
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = true
+pygmentsUseClasses = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]   # JSON powers the search index
+
+# Only expose a "Tags" taxonomy (no categories), like the reference site.
+[taxonomies]
+  tag = "tags"
+
+[params]
+  env = "production"
+  description = "cti.al — vulnerability research, disclosures & threat intelligence"
+  author = "k0x1c"
+  defaultTheme = "dark"
+  disableThemeToggle = false
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = false
+  ShowWordCount = false
+  hidemeta = false
+  showtoc = true
+  mainSections = ["posts"]
+
+  [params.footer]
+    hideCopyright = true
+
+  [params.assets]
+    disableHLJS = false
+
+  # Social / contact icons (rendered in the footer)
+  [[params.socialIcons]]
+    name = "github"
+    title = "GitHub"
+    url = "https://github.com/k0x1c"
+  [[params.socialIcons]]
+    name = "linkedin"
+    title = "LinkedIn"
+    url = "https://www.linkedin.com/in/davidzani/"
+  [[params.socialIcons]]
+    name = "email"
+    title = "Email"
+    url = "mailto:k0x1c@proton.me"
+
+# --- Navigation (same sections as the reference site) ---
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 5
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "disclosures"
+    name = "Disclosures"
+    url = "/disclosures/"
+    weight = 20
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 30
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 40
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact/"
+    weight = 50
+
+[markup.highlight]
+  noClasses = false
+  codeFences = true
+  guessSyntax = true
+  lineNos = false
+  style = "monokai"
+
+# Fuzzy search (Fuse.js, used by PaperMod)
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true

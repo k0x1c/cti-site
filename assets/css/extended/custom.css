@@ -1,0 +1,49 @@
+/* ==========================================================================
+   cti.al — minimal overrides to match the reference layout.
+   Keeps PaperMod's default dark theme; only the two customisations the
+   reference site uses: IBM Plex Mono for code, and centered footer icons.
+   ========================================================================== */
+
+/* Code font. Declared (not imported) exactly like the reference site:
+   renders in IBM Plex Mono where available, falls back to the platform
+   monospace otherwise. */
+code, pre, kbd, samp,
+.highlight, .highlight pre,
+.post-content code, .post-content pre {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
+
+/* Header logo (supports an optional subtitle under the title) */
+.logo-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.logo-title {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: var(--header-height);
+}
+.logo-subtitle {
+    font-size: 0.55em;
+    opacity: 0.7;
+    font-weight: normal;
+    line-height: 1;
+    margin-top: -8px;
+}
+.logo a {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+/* Footer social icons, centered (as on the reference site) */
+.footer-social-icons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+.footer-social-icons .social-icons {
+    display: flex;
+    gap: 12px;
+}

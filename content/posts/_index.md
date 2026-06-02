@@ -1,4 +1,4 @@
 ---
 title: "Posts"
-description: "Articles, research and write-ups."
+description: "Research, write-ups and vulnerability analysis."
 ---

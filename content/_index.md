@@ -1,4 +1,4 @@
 ---
-title: "k0x1c"
-description: "k0x1c"
+title: "cti.al"
+description: "Vulnerability research, coordinated disclosures and threat intelligence."
 ---

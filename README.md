@@ -1,70 +1,60 @@
-# cti.al — sito statico (Hugo + Congo)
+# cti.al — sito statico (Hugo + PaperMod)
 
-Replica strutturale di moltenbit.net: **Hugo** come generatore di siti statici e il
-tema **Congo**. Hosting **gratuito** su **GitHub Pages**, con dominio personalizzato
-`cti.al`. Nessun costo di hosting.
+Replica strutturale di [moltenbit.net](https://moltenbit.net/): generatore **Hugo**,
+tema **PaperMod**, hosting gratuito su **GitHub Pages** con dominio personalizzato
+`cti.al`. Stesse sezioni (Home, Posts, Disclosures, Tags, Search, Contact), stesso
+font, stessa struttura; contenuti propri.
 
-Il tema è già incluso nella cartella `themes/congo/` (non devi installare nulla):
-clona/carica e funziona.
+Il tema è incluso nella cartella `themes/PaperMod/` (licenza MIT): non c'è nulla da
+installare, basta caricare e funziona.
 
 ---
 
-## 1. Struttura del progetto
+## Struttura del progetto
 
 ```
 .
-├── .github/workflows/hugo.yml   # build + deploy automatici su GitHub Pages
-├── config/_default/             # configurazione del sito
-│   ├── hugo.toml                #   baseURL, output, tassonomie
-│   ├── params.toml              #   opzioni tema (colori, ricerca, footer…)
-│   ├── menus.en.toml            #   voci del menu in alto
-│   ├── languages.en.toml        #   titolo, autore, link social
-│   └── markup.toml              #   impostazioni Markdown (necessarie al tema)
-├── content/                     # i tuoi contenuti (Markdown)
-│   ├── _index.md                #   home
-│   ├── posts/                   #   articoli
-│   ├── disclosures/             #   sezione disclosures
-│   └── contact.md               #   pagina contatti
-├── static/CNAME                 # contiene "cti.al" (dominio personalizzato)
-├── assets/                      # immagini/asset personalizzati (opzionale)
-└── themes/congo/                # il tema (già incluso)
+├── .github/workflows/hugo.yml        # build + deploy automatici su GitHub Pages
+├── hugo.toml                         # configurazione del sito (baseURL, menu, output…)
+├── content/
+│   ├── _index.md                     #   home (elenco dei post, come moltenbit)
+│   ├── posts/                        #   articoli / write-up
+│   │   ├── zammad-ssti-rce-ai-agent-cve-2026-34724.md
+│   │   ├── zammad-ssrf-webhooks-cve-2026-34719.md
+│   │   └── zammad-data-uri-xss-cve-2026-34718.md
+│   ├── disclosures/_index.md         #   tabella delle disclosure (CVE, GHSA, post)
+│   ├── contact.md                    #   pagina contatti (+ chiave PGP)
+│   └── search.md                     #   pagina di ricerca
+├── assets/css/extended/custom.css    # font del codice + footer social icons
+├── layouts/_partials/footer.html     # footer con sole social icons (come moltenbit)
+├── static/CNAME                      # contiene "cti.al"
+├── static/pgp.asc                    # chiave PGP pubblica (k0x1c@proton.me)
+└── themes/PaperMod/                   # il tema (incluso)
 ```
 
 ---
 
-## 2. Pubblicazione su GitHub Pages (passo passo)
+## Pubblicazione su GitHub Pages
 
-1. Crea un nuovo repository su GitHub (es. `cti-site`). Può essere pubblico o privato.
-2. Carica questi file nel repository. Da terminale:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial site"
-   git branch -M main
-   git remote add origin https://github.com/TUO-UTENTE/cti-site.git
-   git push -u origin main
-   ```
-   In alternativa puoi trascinare i file nell'interfaccia web di GitHub ("Add file → Upload files").
-3. Nel repository vai su **Settings → Pages**.
-4. Sotto **Build and deployment → Source**, scegli **GitHub Actions**.
-5. Fatto: ad ogni `push` sul branch `main`, il workflow `.github/workflows/hugo.yml`
-   compila il sito e lo pubblica. Lo stato lo vedi nella tab **Actions**.
+Il repository è `github.com/k0x1c/cti-site`. Ad ogni `push` sul branch `main` il
+workflow `.github/workflows/hugo.yml` compila il sito e lo pubblica.
 
-Il primo deploy richiede 1–2 minuti. Il sito sarà raggiungibile su
-`https://TUO-UTENTE.github.io/cti-site/` finché non colleghi il dominio (passo 3).
+Una sola configurazione iniziale, su GitHub:
+**Settings → Pages → Build and deployment → Source → GitHub Actions.**
+
+Lo stato del deploy è nella tab **Actions**. Il primo build richiede 1–2 minuti.
 
 ---
 
-## 3. Collegare il dominio `cti.al`
+## Dominio `cti.al`
 
-### 3a. Su GitHub
-**Settings → Pages → Custom domain** → scrivi `cti.al` → **Save**.
-Poi spunta **Enforce HTTPS** (potrebbe diventare disponibile dopo qualche minuto,
-una volta emesso il certificato).
+Il file `static/CNAME` (contiene `cti.al`) mantiene il dominio impostato ad ogni
+deploy — **non rimuoverlo**.
 
-### 3b. Sul tuo registrar (dove hai comprato cti.al)
-`cti.al` è un dominio *apex* (senza sottodominio), quindi servono i **record A**.
-Crea questi 4 record A (Nome/Host `@`, valori = IP di GitHub Pages):
+Su GitHub: **Settings → Pages → Custom domain → `cti.al` → Save**, poi spunta
+**Enforce HTTPS**.
+
+Sul registrar, `cti.al` è un dominio *apex*: servono i record A verso GitHub Pages.
 
 ```
 A   @   185.199.108.153
@@ -73,85 +63,56 @@ A   @   185.199.110.153
 A   @   185.199.111.153
 ```
 
-(Opzionale, per IPv6, aggiungi anche i record AAAA su `@`:)
-
-```
-AAAA  @  2606:50c0:8000::153
-AAAA  @  2606:50c0:8001::153
-AAAA  @  2606:50c0:8002::153
-AAAA  @  2606:50c0:8003::153
-```
-
-(Opzionale, per far funzionare anche `www.cti.al`:)
-
-```
-CNAME  www  TUO-UTENTE.github.io
-```
-
-La propagazione DNS può richiedere da pochi minuti fino a 24 ore. Verifica con:
-```bash
-dig cti.al +noall +answer -t A
-```
-Devono comparire i 4 IP sopra. Questi IP sono quelli ufficiali correnti di GitHub
-Pages — se in futuro non funzionasse, ricontrolla la pagina "Managing a custom
-domain" nella documentazione GitHub.
-
-> Il file `static/CNAME` (contiene `cti.al`) fa sì che il dominio resti impostato ad
-> ogni deploy. Non rimuoverlo.
+(Opzionale IPv6 con record AAAA su `@`:
+`2606:50c0:8000::153`, `…8001::153`, `…8002::153`, `…8003::153`.)
 
 ---
 
-## 4. Aggiungere un articolo
+## Aggiungere un post
 
-Crea un file `.md` in `content/posts/`, ad esempio `content/posts/mio-articolo.md`:
+Crea un file `.md` in `content/posts/`:
 
 ```markdown
 ---
-title: "Titolo dell'articolo"
+title: "Titolo"
 date: 2026-06-01
-description: "Breve descrizione che compare nella lista e nei meta."
-tags: ["tag1", "tag2"]
+author: "k0x1c"
+tags: ["cybersecurity"]
+description: "Riassunto breve."
+ShowToc: true
 ---
 
-Il contenuto in **Markdown**.
+Contenuto in **Markdown**.
 ```
 
-Fai `commit` e `push`: il sito si ricompila da solo.
-Le sezioni `posts` e `disclosures` funzionano allo stesso modo (un file `.md` per pagina).
+Per aggiungere una voce alle **Disclosures**, aggiungi una riga alla tabella in
+`content/disclosures/_index.md` (colonne: CVE / ID, Product, Summary, Severity, Date,
+References — con i link a NVD, all'advisory GHSA e al post).
+
+`commit` + `push` → il sito si ricompila da solo.
 
 ---
 
-## 5. Personalizzazione rapida
+## Anteprima in locale (opzionale)
 
-- **Titolo del sito e link social**: `config/_default/languages.en.toml`
-  (modifica `title`, e gli URL `bluesky` / `mastodon` / `github`).
-- **Voci del menu**: `config/_default/menus.en.toml`.
-- **Colori / aspetto**: `config/_default/params.toml`
-  - `colorScheme` — `slate` (grigio, impostato di default), oppure `congo`, `ocean`,
-    `sapphire`, `fire`, `cherry`, `avocado`.
-  - `defaultAppearance` — `dark` o `light`; `autoSwitchAppearance` segue il sistema.
-- Tutte le opzioni del tema sono documentate qui:
-  https://jpanther.github.io/congo/docs/configuration/
+Serve **Hugo extended ≥ 0.146**.
 
----
-
-## 6. Anteprima in locale (opzionale)
-
-Serve **Hugo (versione extended ≥ 0.146)**. Installazione:
-- macOS: `brew install hugo`
 - Windows: `winget install Hugo.Hugo.Extended`
-- Linux: scarica il `.deb`/binario "extended" da https://github.com/gohugoio/hugo/releases
+- macOS: `brew install hugo`
+- Linux: binario/`.deb` "extended" da <https://github.com/gohugoio/hugo/releases>
 
-Poi, nella cartella del progetto:
 ```bash
 hugo server
 ```
-Apri http://localhost:1313 . Il sito si aggiorna in tempo reale mentre modifichi i file.
+
+Apri <http://localhost:1313>.
 
 ---
 
 ## Note
 
-- Il tema Congo è incluso (licenza MIT). Per aggiornarlo in futuro puoi sostituire la
-  cartella `themes/congo/` con una versione più recente dal repository ufficiale.
-- I contenuti in `content/posts/` sono esempi: sostituiscili con i tuoi.
+- Tema PaperMod incluso (MIT). Per aggiornarlo, sostituisci `themes/PaperMod/` con una
+  versione più recente dal repository ufficiale.
+- L'accento cromatico segue il default di PaperMod (dark) per restare visivamente
+  identico al sito di riferimento. Per un accento personalizzato basta modificare
+  `assets/css/extended/custom.css`.

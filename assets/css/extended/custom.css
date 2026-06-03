@@ -4,6 +4,13 @@
    reference site uses: IBM Plex Mono for code, and centered footer icons.
    ========================================================================== */
 
+/* Page width — match the reference site (PaperMod's default is only 720px,
+   which crams the 6-column Disclosures table). Widening to 1100px gives every
+   page room, exactly like the reference site. */
+:root {
+    --main-width: 1100px;
+}
+
 /* Code font. Declared (not imported) exactly like the reference site:
    renders in IBM Plex Mono where available, falls back to the platform
    monospace otherwise. */
